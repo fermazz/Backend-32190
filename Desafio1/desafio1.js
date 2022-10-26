@@ -1,41 +1,43 @@
 class Usuario {
 
-    constructor (nombre, apellido, libros, mascotas) {
+    constructor(nombre, apellido, libros, mascotas) {
 
         this.nombre = nombre;
         this.apellido = apellido;
         this.libros = libros;
         this.mascotas = mascotas;
-        
+
     }
 
-    getFullName(){
+    getFullName() {
         return `Nombre completo del usuario es: ${this.nombre} ${this.apellido}`
     };
 
-    addMascotas(nombreMascota){
+    addMascotas(nombreMascota) {
         this.mascotas.push(nombreMascota)
     };
 
-    countMascotas(){
+    countMascotas() {
         return `Número de mascotas que tiene el usuario es: ${this.mascotas.length}`
     }
 
-    addBock(nombreLibro, autorLibro){
+    addBock(nombreLibro, autorLibro) {
         this.libros.push({
             titulo: nombreLibro,
             autor: autorLibro
         })
     }
 
-    getBookNames(){
-        return [libros.nombreLibro]
+    getBookNames() {
+        let nameBook = this.libros.map(function (titulos) {
+            return titulos.titulo
+        })
+        console.log(nameBook)
     }
 
 }
 
-let usuario = new Usuario ('Fernando', 'Mazzucco', [
-    {
+let usuario = new Usuario('Fernando', 'Mazzucco', [{
         titulo: 'El hobbit',
         autor: 'J.R.R. Tolkien',
     },
@@ -45,18 +47,18 @@ let usuario = new Usuario ('Fernando', 'Mazzucco', [
     },
     {
         titulo: 'La  metamorfosis',
-        auto: 'Franz Kafka', 
+        auto: 'Franz Kafka',
     },
 ], ['Fido', 'Preto', 'Pichu']);
 
-console.log(usuario);
+
 console.log(usuario.getFullName());
 
 usuario.addMascotas('Pandi');
 
 console.log(usuario.countMascotas());
 
-usuario.addBock("De la tierra a la luna", "Julio Verne")
+usuario.addBock("De la tierra a la luna", "Julio Verne");
 
-
-
+usuario.getBookNames();
+console.log(usuario);
