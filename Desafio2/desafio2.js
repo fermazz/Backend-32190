@@ -31,9 +31,15 @@ class Contenedor {
 
 //getById(Number): Object - Recibe un id y devuelve el objeto con ese id, o null si no está.
 
-  async getById() {
+  async getById(num) {
 
     const objs = await this.getAll()
+
+    try {
+      let item 
+    } catch (error) {
+      
+    }
   }
 
 //getAll(): Object[] - Devuelve un array con los objetos presentes en el archivo.
@@ -93,4 +99,17 @@ const p1 = {
   }      
 
 //   nuevoArchivo.save(p1)
+
+// const contenedor1 = new Contenedor('/.productos.txt')
+
+// contenedor1.save({                                                                                                                                                    
+//   title: 'Escuadra',                                                                                                                                 
+//   price: 123.45,                                                                                                                                     
+//   thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png',                                     
+                                                                                                                                                
+// } )
+
+// contenedor1.getAll()
+
+// contenedor1.getById(2)
 
