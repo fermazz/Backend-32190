@@ -5,6 +5,21 @@ class Contenedor {
     this.ruta = ruta
   }
 
+//getAll(): Object[] - Devuelve un array con los objetos presentes en el archivo.
+
+async getAll() {
+
+  try {
+    // ??? aqui va this.ruta o '/.Productos.txt'
+      const objs = await fs.readFile(this.ruta, 'utf-8') 
+      return JSON.parse(objs)
+      
+  } catch (error) {
+     return []
+      
+  }
+}
+
 //save(Object): Number - Recibe un objeto, lo guarda en el archivo, devuelve el id asignado.
   async save(obj) {
 
@@ -49,20 +64,7 @@ class Contenedor {
     }
   }
 
-//getAll(): Object[] - Devuelve un array con los objetos presentes en el archivo.
 
-  async getAll() {
-
-    try {
-      // ??? aqui va this.ruta o '/.Productos.txt'
-        const objs = await fs.readFile(this.ruta, 'utf-8') 
-        return JSON.parse(objs)
-        
-    } catch (error) {
-       return []
-        
-    }
-  }
 
 //deleteById(Number): void - Elimina del archivo el objeto con el id buscado.
 
@@ -129,23 +131,14 @@ await contenedor.save({
   await contenedor.getById(id)
   const objs = await contenedor.getAll()
   console.log('array de productos ', objs)
+  // await contenedor.deleteById(2)
+  // await contenedor.deleteAll()
+
   
   
 }
 
 main ()
-//   nuevoArchivo.save(p1)
 
-// const contenedor1 = new Contenedor('/.productos.txt')
 
-// contenedor1.save({                                                                                                                                                    
-//   title: 'Escuadra',                                                                                                                                 
-//   price: 123.45,                                                                                                                                     
-//   thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png',                                     
-                                                                                                                                                
-// } )
-
-// contenedor1.getAll()
-
-// contenedor1.getById(2)
 
