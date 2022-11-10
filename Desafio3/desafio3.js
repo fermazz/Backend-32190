@@ -1,0 +1,170 @@
+const express = require('express')
+const {
+    promises: fs
+  } = require("fs");
+
+// Le asingo express a la variable/const
+const app = express()
+
+// copio clase contenedor del desafio 2
+
+class Contenedor {
+    constructor(ruta) {
+      this.ruta = ruta
+    }
+  
+    //getAll(): Object[] - Devuelve un array con los objetos presentes en el archivo.
+  
+    async getAll() {
+  
+      try {
+        const objs = await fs.readFile(this.ruta, 'utf-8')
+        return JSON.parse(objs)
+  
+      } catch (error) {
+        return []
+  
+      }
+    }
+  
+    //save(Object): Number - Recibe un objeto, lo guarda en el archivo, devuelve el id asignado.
+    async save(obj) {
+  
+      try {
+  
+        const objs = await this.getAll()
+  
+        // Busco el último id para generar un nuevo id sumandole 1
+        const lastId = objs[objs.length - 1].id
+        const newObj = {...obj, id: lastId + 1}
+        objs.push(newObj)
+  
+        await fs.writeFile(this.ruta, JSON.stringify(objs, null, 2))
+        console.log('Se creo un nuevo producto con id: ' + newObj.id)
+  
+      } catch (error) {
+  
+        // Si no existe el archivo, creamos por primera vez la lista de productos
+        const newObj = {...obj, id: 1}
+        await fs.writeFile(this.ruta, JSON.stringify([newObj], null, 2))
+        console.log("Se creo nuevo producto con id: " + newObj.id)
+  
+      }
+    }
+  
+    //getById(Number): Object - Recibe un id y devuelve el objeto con ese id, o null si no está.
+  
+    async getById(id) {
+  
+  
+      try {
+        const objs = await this.getAll()
+        const obj = objs.find((obj) => obj.id === id)
+        if (!obj) {
+          console.log('null')
+        } else {
+          console.log('Producto con id ', id, obj)
+        }
+  
+      } catch (error) {
+        throw new Error('no hay productos con ese id')
+  
+      }
+    }
+  
+    //deleteById(Number): void - Elimina del archivo el objeto con el id buscado.
+  
+    async deleteById(id) {
+      try {
+        const objs = await this.getAll()
+        // verifico si existe el id, si no mando error
+        const obj = objs.find((obj) => obj.id === id)
+        if (!obj) {
+          throw new Error("No fue encontrado el producot con el id ")
+        }
+        // filtro el array de productos y mequedo con los que no tengan el id que quiero eliminar
+        const newObjs = objs.filter((obj) => obj.id !== id)
+        await fs.writeFile(this.ruta, JSON.stringify(newObjs, null, 2))
+  
+      } catch (error) {
+        console.log("Error en deleteById: ", error)
+      }
+    }
+  
+    //deleteAll(): void - Elimina todos los objetos presentes en el archivo.
+  
+    async deleteAll() {
+      try {
+        await fs.writeFile(this.ruta, JSON.stringify([], null, 2))
+        console.log('Archivo borrado')
+  
+      } catch (error) {
+        throw new Error `Error al borrar el archivo ${error}`
+      }
+    }
+  }
+
+
+
+const PORT = 8080 
+const server = app.listen(PORT, () => {
+    
+    console.log(`Servidor escuchando en el puerto ${PORT}`)
+})
+
+server.on('error', error => console.log('Hubo un error: ' + error))
+
+
+const main = async () => {
+    const contenedor = new Contenedor('productos.txt')
+  
+    await contenedor.save({
+  
+      title: 'Escuadra',
+      price: 123.45,
+      thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png',
+  
+    })
+  
+    await contenedor.save({
+      title: 'Calculadora',
+      price: 234.56,
+      thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png',
+  
+    })
+  
+    await contenedor.save({
+      title: 'Globo Terráqueo',
+      price: 345.67,
+      thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+  
+    })
+  
+    // const id = 3
+    // await contenedor.getById(2)
+    // const objs = await contenedor.getAll()
+    // console.log('array de productos ', objs)
+    // // await contenedor.deleteById(2)
+    // // await contenedor.deleteAll()
+  
+ 
+
+  // Muestro los productos por pantalla 
+app.get('/productos', async (req, res) => {
+    const productos = await contenedor.getAll()
+    res.send({productos})
+})
+
+// Obtengo todos los id y elijo uno random para mostrar
+app.get('/productoRandom', async (req, res) => {
+    const productos = await contenedor.getAll()
+    const ids = productos.map(producto => producto.id)
+    console.log(ids)
+    const randomId = ids[Math.floor(Math.random() * ids.length)]
+    const producto = await contenedor.getById(randomId)
+    res.send({producto})
+})
+
+}
+  
+main()
