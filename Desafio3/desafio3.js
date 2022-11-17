@@ -6,6 +6,9 @@ const {
 // Le asingo express a la variable/const
 const app = express()
 
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
 // copio clase contenedor del desafio 2
 
 class Contenedor {
@@ -106,7 +109,7 @@ class Contenedor {
 
 
 
-const PORT = 8080 
+const PORT = 8083
 const server = app.listen(PORT, () => {
     
     console.log(`Servidor escuchando en el puerto ${PORT}`)
