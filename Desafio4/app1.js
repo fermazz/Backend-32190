@@ -15,7 +15,7 @@ app.use(express.static('public'));
 
 //get
 productosRouter.get('/', (req, res) =>
-res.send)
+res.send(productos))
 
 productosRouter.get('/:id', (req, res) =>{
     const {id} = req.params
@@ -58,7 +58,7 @@ productosRouter.put('/:id', (req,res) =>{
 //delete
 productosRouter.delete('/:id', (req, res) =>{
     const {id} = req.params
-    const prodEncontrado = productos.find((e) => e.id === id)
+    const prodEncontrado = productos.find((e) => e.id == id)
     if(!prodEncontrado) {
         res.json(`Producto con el id: ${id} no existe`)
     }else{
