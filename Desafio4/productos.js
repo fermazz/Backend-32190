@@ -28,9 +28,11 @@ class ProductosApi {
 
     }
 
-    delete(){
+    // delete(id){
+    // //     const prop = this.getById()
 
-    }
+
+    // }
 }
 
 module.exports = ProductosApi

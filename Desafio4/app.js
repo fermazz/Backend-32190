@@ -1,5 +1,6 @@
 const express = require ('express')
 const ProductosApi = require('./productos.js')
+const multer = require ('multer')
 
 
 const {Router} = express
@@ -7,6 +8,7 @@ const {Router} = express
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use(express.static('public'))
 
 //Routers
 
@@ -31,7 +33,7 @@ productosRouter.post('/', (req, res) => {
 //server
 app.use('/api/productos', productosRouter)
 
-PORT = 8080
+PORT = 8081
 
 const server = app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto: ${PORT}`);
