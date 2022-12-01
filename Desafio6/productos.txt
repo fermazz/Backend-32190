@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Pizza",
+    "price": "100",
+    "thumbnail": "https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTh8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80",
+    "id": 1
+  },
+  {
+    "title": "Arroz",
+    "price": "50",
+    "thumbnail": "https://img.freepik.com/fotos-gratis/arroz-basmati-branco-puro-cozido-ou-arroz-cozido-no-vapor-em-uma-tigela_466689-74921.jpg?size=626&ext=jpg",
+    "id": 2
+  }
+]
