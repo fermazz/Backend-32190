@@ -1,0 +1,49 @@
+1-2 
+ use ecommerce
+
+ db.mensajes.insertMany([{autor: "Fernando", mensaje: "Hola Rodri", fyh: "27/12/22 17:40"},{autor: "Rodrigo", mensaje: "Hola como estás Fer?", fyh: "27/12/22 17:40"},{autor: "Fernando", mensaje: "Todo bien y vos?", fyh: "27/12/22 17:41"},{autor: "Rodrigo", mensaje: "Me alegro. Yo también estoy bien", fyh: "27/12/22 17:41"},{autor: "Fernando", mensaje: "Que bueno. Te queria preguntar si te pendes a jugar un partido mañana por la tarde?", fyh: "27/12/22 17:42"},{autor: "Rodrigo", mensaje: "Si, me prendo, quienes van?", fyh: "27/12/22 17:42"},{autor: "Fernando", mensaje: "Los chicos del cole", fyh: "27/12/22 17:43"},{autor: "Rodrigo", mensaje: "Y dónde jugamos?", fyh: "27/12/22 17:43"},{autor: "Fernando", mensaje: "En la cnachita de siempre", fyh: "27/12/22 17:44"},{autor: "Rodrigo", mensaje: "Bueno dale nos vemos ahi", fyh: "27/12/22 17:44"}])
+
+ db.productos.insertMany([{title: "arroz", price: 350, thumbnail: "titulo1"},{title: "fideos", price: 800, thumbnail: "titulo2"},{title: "leche",price: 1300, thumbnail: "titulo3"},{title: "tomate",price: 1750, thumbnail: "titulo4"},{title: "cebolla",price: 2450, thumbnail: "titulo5"},{title: "gaseosa",price: 3100, thumbnail: "titulo6"},{title: "lechuga",price: 3900, thumbnail: "titulo7"},{title: "mandarina",price: 4200, thumbnail: "titulo8"},{title: "cerveza",price: 4600, thumbnail: "titulo9"},{title: "pan",price: 5000,thumbnail: "titulo10"}])
+
+3- 
+
+ db.mensajes.find()
+ db.productos.find()
+
+4- 
+
+ db.mensajes.estimatedDocumentCount()
+ db.productos.estimatedDocumentCount()
+
+5-
+
+ a-
+  db.productos.insertOne({title: "banana", price: 563, thumbnail: "producto11"})
+
+ b- 
+
+  I-
+      db.productos.find({price: {$lte: 1000}})
+  II-
+      db.productos.find({$and: [{price: {$gte: 1000}}, {price: {$lte: 3000}} ]})
+  III-  
+      db.productos.find({price: {$gte: 3000}})
+  VI-
+      db.productos.find({},{title: 1, _id:0}).skip(2).limit(1).sort({price: 1})
+
+ c- 
+  db.productos.updateMany({}, {$set: {stock: 100}})
+
+ d- 
+  db.productos.updateMany({price: {$gte: 4000}}, {$set: {stock: 0}})   
+
+ e- 
+  db.productos.deleteMany({price: {$lte: 1000}})
+
+6- 
+
+ db.createUser({user: "pepe", pwd: "asd456", roles: [{role: "read", db: "ecommerce"}]})
+    
+
+     
+
