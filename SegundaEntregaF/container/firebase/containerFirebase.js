@@ -4,7 +4,7 @@ const serviceAccount = require('../../db/config.json')
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://cursobackend32190.firebaseio.com"
+    databaseURL: ""
 });
 
 

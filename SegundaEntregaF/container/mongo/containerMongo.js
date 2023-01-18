@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const modelsProducts = require('../../models/modelsProduct')
 const cartModels = require('../../models/modelsCart')
 
-mongoose.connect("mongodb+srv://coderhouse:coderhouse@cluster0.detnzhp.mongodb.net/ecommerce?retryWrites=true&w=majority", {
+mongoose.connect("", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, (err) => {
